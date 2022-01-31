@@ -1,5 +1,5 @@
 //
-//  CodeVerifVC.swift
+//  MainVC.swift
 //  RegistrationApp
 //
 //  Created by Roma on 31.01.22.
@@ -7,21 +7,15 @@
 
 import UIKit
 
-class CodeVerifVC: UIViewController {
+class MainVC: UIViewController {
 
-    
-    @IBOutlet weak var codeLbl: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
     
-    @IBAction func codeField(_ sender: Any) {
-    }
-    
-    @IBAction func continueBtn(_ sender: Any) {
-    }
-    
+
     /*
     // MARK: - Navigation
 
