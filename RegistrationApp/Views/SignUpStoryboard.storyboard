@@ -231,7 +231,7 @@
                                     <action selector="codeField:" destination="1L6-57-kgi" eventType="editingDidEnd" id="fah-J8-m9p"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-gV-MJS">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-gV-MJS">
                                 <rect key="frame" x="16" y="516" width="382" height="54"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Continue">
@@ -263,6 +263,8 @@
                     <navigationItem key="navigationItem" id="sSt-UN-CFR"/>
                     <connections>
                         <outlet property="codeLbl" destination="feY-mx-73u" id="qX2-sL-2Xb"/>
+                        <outlet property="codeOutField" destination="qC8-QB-4pX" id="6cg-VY-MH0"/>
+                        <outlet property="continueOutBtn" destination="A7S-gV-MJS" id="4Bf-fS-dfK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46j-7H-pFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

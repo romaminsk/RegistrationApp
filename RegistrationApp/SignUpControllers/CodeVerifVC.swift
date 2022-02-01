@@ -11,15 +11,29 @@ class CodeVerifVC: UIViewController {
 
     
     @IBOutlet weak var codeLbl: UILabel!
+    @IBOutlet weak var continueOutBtn: UIButton!
+    @IBOutlet weak var codeOutField: UITextField!
+    
+    var titleText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        codeLbl.text = titleText
+        codeOutField.addTarget(self, action: #selector(checkCode(_:)), for: .editingChanged)
     }
     
     @IBAction func codeField(_ sender: Any) {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
+    }
+    
+    @objc func checkCode(_ sender: UITextField) {
+        if codeLbl.text == codeOutField.text {
+            continueOutBtn.isEnabled = true;
+        } else {
+            continueOutBtn.isEnabled = false;
+        }
     }
     
     /*

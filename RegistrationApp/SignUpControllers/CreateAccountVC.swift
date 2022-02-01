@@ -28,9 +28,7 @@ class CreateAccountVC: UIViewController {
         passwordOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPassOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPassOutField.addTarget(self, action: #selector(checkPasswordConfirmation(_:)), for: .editingChanged)
-        
         passwordOutField.addTarget(self, action: #selector(checkPassword(_:)), for: .editingChanged)
-        
         self.passwordProgress.setProgress(0, animated: true)
         self.weakPasswordLbl.textColor = UIColor.red
         self.weakPasswordLbl.text = ""
@@ -55,7 +53,7 @@ class CreateAccountVC: UIViewController {
 
     @IBAction func signUpBtn(_ sender: Any) {
     }
-    
+
     @objc func checkEmail(_ sender: UITextField) {
         if !VerificationService.isValidEmail(email: emailOutField?.text ?? "") {
             wrongEmailLbl.isHidden = false
@@ -63,7 +61,7 @@ class CreateAccountVC: UIViewController {
             wrongEmailLbl.isHidden = true
         }
     }
-    
+
 //    Почему-то попадает только в первый и предпоследний if
     @objc func checkPassword(_ sender: UITextField) {
         if VerificationService.isPasswordPasswordWeakRegex(pass: passwordOutField?.text ?? "") {
@@ -71,28 +69,21 @@ class CreateAccountVC: UIViewController {
             passwordProgress.tintColor = UIColor.red
             weakPasswordLbl.text = "Password is weak"
             weakPasswordLbl.isHidden = false
-            weakPasswordLbl.textColor = UIColor.red
         } else if VerificationService.isPasswordPasswordNotVeryWeakRegex(pass: passwordOutField?.text ?? "") {
             passwordProgress.progress = 0.4
             passwordProgress.tintColor = UIColor.yellow
-            weakPasswordLbl.text = "Password isn't very weak"
-            weakPasswordLbl.isHidden = false
-            weakPasswordLbl.textColor = UIColor.yellow
+            weakPasswordLbl.isHidden = true
         } else if VerificationService.isPasswordPasswordNotVeryStrongRegex(pass: passwordOutField?.text ?? "") {
             passwordProgress.progress = 0.7
             passwordProgress.tintColor = UIColor.blue
-            weakPasswordLbl.text = "Password isn't very strong"
-            weakPasswordLbl.isHidden = false
-            weakPasswordLbl.textColor = UIColor.blue
+            weakPasswordLbl.isHidden = true
         } else if VerificationService.isPasswordPasswordStrongRegex(pass: passwordOutField?.text ?? "") {
             passwordProgress.progress = 1
             passwordProgress.tintColor = UIColor.green
-            weakPasswordLbl.text = "Password is OK"
-            weakPasswordLbl.isHidden = false
-            weakPasswordLbl.textColor = UIColor.green
+            weakPasswordLbl.isHidden = true
         }
     }
-    
+
     @objc func checkPasswordConfirmation(_ sender: UITextField) {
         if !VerificationService.isPassCofirm(pass1: passwordOutField?.text ?? "", pass2: repeatPassOutField?.text ?? "") {
             wrongPasswordLbl.isHidden = false
@@ -112,6 +103,11 @@ class CreateAccountVC: UIViewController {
             signUpOutBtn?.alpha = 1.0
         }
     }
+    
+    private func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
 
     /*
     // MARK: - Navigation
@@ -122,5 +118,11 @@ class CreateAccountVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let detailViewController = segue.destination as? CodeVerifVC {
+                detailViewController.titleText = randomString(length: 2)
+            }
+        }
+    
+    
 }
