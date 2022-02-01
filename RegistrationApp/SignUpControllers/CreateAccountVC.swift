@@ -28,6 +28,13 @@ class CreateAccountVC: UIViewController {
         passwordOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPassOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPassOutField.addTarget(self, action: #selector(checkPasswordConfirmation(_:)), for: .editingChanged)
+        
+        passwordOutField.addTarget(self, action: #selector(checkPassword(_:)), for: .editingChanged)
+        
+        self.passwordProgress.setProgress(0, animated: true)
+        self.weakPasswordLbl.textColor = UIColor.red
+        self.weakPasswordLbl.text = ""
+        self.weakPasswordLbl.isHidden = true
     }
 
     @IBAction func signInBtn(_ sender: Any) {
@@ -57,7 +64,33 @@ class CreateAccountVC: UIViewController {
         }
     }
     
+//    Почему-то попадает только в первый и предпоследний if
     @objc func checkPassword(_ sender: UITextField) {
+        if VerificationService.isPasswordPasswordWeakRegex(pass: passwordOutField?.text ?? "") {
+            passwordProgress.progress = 0.1
+            passwordProgress.tintColor = UIColor.red
+            weakPasswordLbl.text = "Password is weak"
+            weakPasswordLbl.isHidden = false
+            weakPasswordLbl.textColor = UIColor.red
+        } else if VerificationService.isPasswordPasswordNotVeryWeakRegex(pass: passwordOutField?.text ?? "") {
+            passwordProgress.progress = 0.4
+            passwordProgress.tintColor = UIColor.yellow
+            weakPasswordLbl.text = "Password isn't very weak"
+            weakPasswordLbl.isHidden = false
+            weakPasswordLbl.textColor = UIColor.yellow
+        } else if VerificationService.isPasswordPasswordNotVeryStrongRegex(pass: passwordOutField?.text ?? "") {
+            passwordProgress.progress = 0.7
+            passwordProgress.tintColor = UIColor.blue
+            weakPasswordLbl.text = "Password isn't very strong"
+            weakPasswordLbl.isHidden = false
+            weakPasswordLbl.textColor = UIColor.blue
+        } else if VerificationService.isPasswordPasswordStrongRegex(pass: passwordOutField?.text ?? "") {
+            passwordProgress.progress = 1
+            passwordProgress.tintColor = UIColor.green
+            weakPasswordLbl.text = "Password is OK"
+            weakPasswordLbl.isHidden = false
+            weakPasswordLbl.textColor = UIColor.green
+        }
     }
     
     @objc func checkPasswordConfirmation(_ sender: UITextField) {
