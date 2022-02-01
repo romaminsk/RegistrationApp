@@ -143,6 +143,7 @@
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hN-tZ-hIn">
                                                 <rect key="frame" x="135" y="900" width="140" height="55"/>
+                                                <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Sign Up">
                                                     <fontDescription key="titleFontDescription" type="system" pointSize="34"/>
@@ -188,9 +189,13 @@
                     </view>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
+                        <outlet property="emailOutField" destination="3Ya-oW-kQk" id="3GR-62-2D1"/>
+                        <outlet property="passwordOutField" destination="n6c-cb-6oL" id="R3G-CG-cnO"/>
                         <outlet property="passwordProgress" destination="DtF-5n-haQ" id="IOu-pG-Mtl"/>
+                        <outlet property="repeatPassOutField" destination="RcT-yI-QmN" id="POB-6c-kaX"/>
+                        <outlet property="signUpOutBtn" destination="4hN-tZ-hIn" id="l5b-Be-Lsu"/>
                         <outlet property="weakPasswordLbl" destination="NBb-lz-ga4" id="njh-pG-VXs"/>
-                        <outlet property="wrongEmailLblb" destination="wgn-4C-Yr0" id="oeV-6k-Uui"/>
+                        <outlet property="wrongEmailLbl" destination="wgn-4C-Yr0" id="oeV-6k-Uui"/>
                         <outlet property="wrongPasswordLbl" destination="IqP-1L-Azb" id="qNi-nD-IcP"/>
                     </connections>
                 </viewController>
@@ -327,6 +332,9 @@ screen</string>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

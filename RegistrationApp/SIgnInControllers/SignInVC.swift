@@ -16,6 +16,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        signInOutBtn.layer.cornerRadius = 5
         signInOutBtn?.alpha = 0.5
         signInOutBtn.isEnabled = false;
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
