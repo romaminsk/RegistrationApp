@@ -7,33 +7,52 @@
 
 import UIKit
 
-class SignInVC: UIViewController, UITextFieldDelegate {
+final class SignInVC: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var userNotFoundLbl: UILabel!
-    @IBOutlet weak var signInOutBtn: UIButton!
+    @IBOutlet private weak var emailField: UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
+    @IBOutlet private weak var userNotFoundLbl: UILabel!
+    @IBOutlet private weak var signInOutBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        signInOutBtn.layer.cornerRadius = 5
-        signInOutBtn?.alpha = 0.5
-        signInOutBtn.isEnabled = false;
+        setLoginButton()
+        targetFields()
+    }
+
+    @IBAction private func signInBtn(_ sender: Any) {
+    }
+
+    @objc private func textFieldDidChange(_ sender: UITextField) {
+        if emailField.text == "" &&
+            passwordField.text == "" {
+            signInOutBtn.isEnabled = false;
+        } else {
+            updateBtnState()
+        }
+    }
+    
+    private func targetFields() {
         emailField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
-    @IBAction func signInBtn(_ sender: Any) {
+    // не срабатывает оператор && отрабатывает, как или
+    // часть имейла тоже пропускает (roma -- roma@roma.com)
+    private func updateBtnState() {
+        signInOutBtn.isEnabled = isKeyPresentInUserDefaults(key: emailField.text ?? "") &&
+            isKeyPresentInUserDefaults(key: passwordField.text ?? "")
+        signInOutBtn?.alpha = 1.0
     }
 
-    @objc func textFieldDidChange(_ sender: UITextField) {
-        if emailField.text == "" || passwordField.text == "" {
-            signInOutBtn.isEnabled = false;
-            signInOutBtn?.alpha = 0.5
-        } else {
-            signInOutBtn.isEnabled = true;
-            signInOutBtn?.alpha = 1.0
-        }
+    private func isKeyPresentInUserDefaults(key: String) -> Bool {
+        return UserDefaults.standard.object(forKey: key) != nil
+    }
+    
+    private func setLoginButton() {
+        signInOutBtn.layer.cornerRadius = 5
+        signInOutBtn?.alpha = 0.5
+        signInOutBtn.isEnabled = false;
     }
 
     /*

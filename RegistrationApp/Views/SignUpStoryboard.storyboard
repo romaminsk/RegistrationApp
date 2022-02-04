@@ -190,6 +190,7 @@
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
                         <outlet property="emailOutField" destination="3Ya-oW-kQk" id="3GR-62-2D1"/>
+                        <outlet property="nameOutField" destination="uhh-HV-qVs" id="kTy-Og-HRt"/>
                         <outlet property="passwordOutField" destination="n6c-cb-6oL" id="R3G-CG-cnO"/>
                         <outlet property="passwordProgress" destination="DtF-5n-haQ" id="IOu-pG-Mtl"/>
                         <outlet property="repeatPassOutField" destination="RcT-yI-QmN" id="POB-6c-kaX"/>
@@ -228,20 +229,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="codeField:" destination="1L6-57-kgi" eventType="editingDidEnd" id="fah-J8-m9p"/>
+                                    <action selector="codeField:" destination="1L6-57-kgi" eventType="editingChanged" id="otl-BL-GmU"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7S-gV-MJS">
-                                <rect key="frame" x="16" y="516" width="382" height="54"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Continue">
-                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="33"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="continueBtn:" destination="1L6-57-kgi" eventType="touchUpInside" id="NDZ-dl-XDS"/>
-                                    <segue destination="wc1-Lv-rDC" kind="show" id="HLN-7K-zHi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="buD-2c-Kgv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -251,9 +241,6 @@
                             <constraint firstItem="qC8-QB-4pX" firstAttribute="top" secondItem="feY-mx-73u" secondAttribute="bottom" constant="64" id="CSv-ch-ENq"/>
                             <constraint firstItem="buD-2c-Kgv" firstAttribute="trailing" secondItem="qC8-QB-4pX" secondAttribute="trailing" constant="16" id="KEc-5g-enM"/>
                             <constraint firstItem="hIX-kb-CJM" firstAttribute="trailing" secondItem="feY-mx-73u" secondAttribute="trailing" id="Kge-XI-w00"/>
-                            <constraint firstItem="A7S-gV-MJS" firstAttribute="top" secondItem="qC8-QB-4pX" secondAttribute="bottom" constant="140.5" id="bue-yX-Ewh"/>
-                            <constraint firstItem="buD-2c-Kgv" firstAttribute="trailing" secondItem="A7S-gV-MJS" secondAttribute="trailing" constant="16" id="dXZ-6B-950"/>
-                            <constraint firstItem="A7S-gV-MJS" firstAttribute="leading" secondItem="buD-2c-Kgv" secondAttribute="leading" constant="16" id="dhE-Wz-3YX"/>
                             <constraint firstItem="hIX-kb-CJM" firstAttribute="top" secondItem="buD-2c-Kgv" secondAttribute="top" constant="96" id="lLU-e0-AL4"/>
                             <constraint firstItem="hIX-kb-CJM" firstAttribute="leading" secondItem="feY-mx-73u" secondAttribute="leading" id="mBL-0N-zDA"/>
                             <constraint firstItem="qC8-QB-4pX" firstAttribute="leading" secondItem="buD-2c-Kgv" secondAttribute="leading" constant="16" id="pNS-8I-34G"/>
@@ -263,8 +250,7 @@
                     <navigationItem key="navigationItem" id="sSt-UN-CFR"/>
                     <connections>
                         <outlet property="codeLbl" destination="feY-mx-73u" id="qX2-sL-2Xb"/>
-                        <outlet property="codeOutField" destination="qC8-QB-4pX" id="6cg-VY-MH0"/>
-                        <outlet property="continueOutBtn" destination="A7S-gV-MJS" id="4Bf-fS-dfK"/>
+                        <segue destination="wc1-Lv-rDC" kind="show" identifier="ShowWelcomeScreen" id="xnJ-g7-bh0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="46j-7H-pFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

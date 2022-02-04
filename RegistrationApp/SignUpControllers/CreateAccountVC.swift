@@ -7,54 +7,46 @@
 
 import UIKit
 
-class CreateAccountVC: UIViewController {
+final class CreateAccountVC: UIViewController {
 
-    @IBOutlet weak var passwordProgress: UIProgressView!
-    @IBOutlet weak var wrongEmailLbl: UILabel!
-    @IBOutlet weak var weakPasswordLbl: UILabel!
-    @IBOutlet weak var wrongPasswordLbl: UILabel!
-    @IBOutlet weak var emailOutField: UITextField!
-    @IBOutlet weak var passwordOutField: UITextField!
-    @IBOutlet weak var repeatPassOutField: UITextField!
-    @IBOutlet weak var signUpOutBtn: UIButton!
+    @IBOutlet private weak var passwordProgress: UIProgressView!
+    @IBOutlet private weak var wrongEmailLbl: UILabel!
+    @IBOutlet private weak var weakPasswordLbl: UILabel!
+    @IBOutlet private weak var wrongPasswordLbl: UILabel!
+    @IBOutlet private weak var emailOutField: UITextField!
+    @IBOutlet private weak var nameOutField: UITextField!
+    @IBOutlet private weak var passwordOutField: UITextField!
+    @IBOutlet private weak var repeatPassOutField: UITextField!
+    @IBOutlet private weak var signUpOutBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpOutBtn.layer.cornerRadius = 5
-        signUpOutBtn?.alpha = 0.5
-        signUpOutBtn.isEnabled = false;
-        emailOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        emailOutField.addTarget(self, action: #selector(checkEmail(_:)), for: .editingChanged)
-        passwordOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        repeatPassOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        repeatPassOutField.addTarget(self, action: #selector(checkPasswordConfirmation(_:)), for: .editingChanged)
-        passwordOutField.addTarget(self, action: #selector(checkPassword(_:)), for: .editingChanged)
-        self.passwordProgress.setProgress(0, animated: true)
-        self.weakPasswordLbl.textColor = UIColor.red
-        self.weakPasswordLbl.text = ""
-        self.weakPasswordLbl.isHidden = true
+        setSignUpDutton()
+        setTargetFields()
+        setProgressBar()
+        setPasswordLbl()
     }
 
-    @IBAction func signInBtn(_ sender: Any) {
+    @IBAction private func signInBtn(_ sender: Any) {
         _ = navigationController?.popToRootViewController(animated: true)
     }
 
-    @IBAction func emailField(_ sender: Any) {
+    @IBAction private func emailField(_ sender: Any) {
     }
 
-    @IBAction func nameField(_ sender: Any) {
+    @IBAction private func nameField(_ sender: Any) {
     }
 
-    @IBAction func passwordField(_ sender: Any) {
+    @IBAction private func passwordField(_ sender: Any) {
     }
 
-    @IBAction func repeatPasswordField(_ sender: Any) {
+    @IBAction private func repeatPasswordField(_ sender: Any) {
     }
 
-    @IBAction func signUpBtn(_ sender: Any) {
+    @IBAction private func signUpBtn(_ sender: Any) {
     }
 
-    @objc func checkEmail(_ sender: UITextField) {
+    @objc private func checkEmail(_ sender: UITextField) {
         if !VerificationService.isValidEmail(email: emailOutField?.text ?? "") {
             wrongEmailLbl.isHidden = false
         } else {
@@ -63,7 +55,7 @@ class CreateAccountVC: UIViewController {
     }
 
 //    Почему-то попадает только в первый и предпоследний if
-    @objc func checkPassword(_ sender: UITextField) {
+    @objc private func checkPassword(_ sender: UITextField) {
         if VerificationService.isPasswordPasswordWeakRegex(pass: passwordOutField?.text ?? "") {
             passwordProgress.progress = 0.1
             passwordProgress.tintColor = UIColor.red
@@ -84,7 +76,7 @@ class CreateAccountVC: UIViewController {
         }
     }
 
-    @objc func checkPasswordConfirmation(_ sender: UITextField) {
+    @objc private func checkPasswordConfirmation(_ sender: UITextField) {
         if !VerificationService.isPassCofirm(pass1: passwordOutField?.text ?? "", pass2: repeatPassOutField?.text ?? "") {
             wrongPasswordLbl.isHidden = false
         } else {
@@ -92,7 +84,7 @@ class CreateAccountVC: UIViewController {
         }
     }
 
-    @objc func textFieldDidChange(_ sender: UITextField) {
+    @objc private func textFieldDidChange(_ sender: UITextField) {
         if emailOutField.text == "" ||
             passwordOutField.text == "" ||
             repeatPassOutField.text == "" {
@@ -104,25 +96,47 @@ class CreateAccountVC: UIViewController {
         }
     }
     
+    private func setSignUpDutton() {
+        signUpOutBtn.layer.cornerRadius = 5
+        signUpOutBtn?.alpha = 0.5
+        signUpOutBtn.isEnabled = false;
+    }
+    
+    private func setPasswordLbl() {
+        weakPasswordLbl.textColor = UIColor.red
+        weakPasswordLbl.text = ""
+        weakPasswordLbl.isHidden = true
+    }
+    
+    private func setProgressBar() {
+        passwordProgress.setProgress(0, animated: true)
+    }
+    
+    private func setTargetFields() {
+        emailOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        emailOutField.addTarget(self, action: #selector(checkEmail(_:)), for: .editingChanged)
+        passwordOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        repeatPassOutField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        repeatPassOutField.addTarget(self, action: #selector(checkPasswordConfirmation(_:)), for: .editingChanged)
+        passwordOutField.addTarget(self, action: #selector(checkPassword(_:)), for: .editingChanged)
+    }
+
     private func randomString(length: Int) -> String {
-      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-      return String((0..<length).map{ _ in letters.randomElement()! })
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map { _ in letters.randomElement()! })
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let detailViewController = segue.destination as? CodeVerifVC {
-                detailViewController.titleText = randomString(length: 2)
-            }
+        if let detailViewController = segue.destination as? CodeVerifVC {
+            detailViewController.titleText = randomString(length: 2)
         }
-    
-    
+        guard let email = emailOutField.text,
+            let name = nameOutField.text,
+            let pass = passwordOutField.text,
+            let destVC = segue.destination as? CodeVerifVC else { return }
+
+        destVC.email = email
+        destVC.name = name
+        destVC.pass = pass
+    }
 }
